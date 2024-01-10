@@ -20,6 +20,7 @@ public class IntellitrustPlugin: CAPPlugin {
     }
     
     @objc func createNewSoftTokenIdentity(_ call: CAPPluginCall) {
+        print(call)
         let serialNumber = call.getString("serialNumber") ?? ""
         let activationCode = call.getString("activationCode") ?? ""
         let deviceId = call.getString("deviceId") ?? ""
@@ -49,6 +50,7 @@ public class IntellitrustPlugin: CAPPlugin {
                 try ETIdentityProvider.validateActivationCode(activationCode)
             }catch let error as NSError{
                 pluginResult = CAPPluginCallResult(["status": error, "message": error.localizedDescription ])
+                print(pluginResult)
                 call.resolve([
                     "sendPluginResult": pluginResult,
                     "callbackId": call.callbackId
